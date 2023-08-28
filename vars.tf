@@ -8,4 +8,3 @@ variable "max_size" {}
 variable "bastion_cidr" {}
 variable "allow_app_cidr" {}
 variable "vpc_id" {}
-variable "tags" {}
