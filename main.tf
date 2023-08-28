@@ -27,7 +27,7 @@ resource "aws_security_group" "sg" {
   }
 
   tags = {
-    Name = merge(var.tags, { Name = "${var.name}-${var.env}-sg" })
+    Name = "${var.name}-${var.env}-sg"
   }
 }
 resource "aws_launch_template" "template" {
