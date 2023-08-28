@@ -11,13 +11,13 @@ resource "aws_security_group" "sg" {
     protocol         = "tcp"
     cidr_blocks      = var.allow_app_cidr
   }
-   ingress {
-     description = "SSH"
-     from_port = 22
-     to_port = 22
-     protocol = "tcp"
-     cidr_blocks = var.bastion_cidr
-   }
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.bastion_cidr
+  }
   egress {
     from_port        = 0
     to_port          = 0
@@ -30,19 +30,21 @@ resource "aws_security_group" "sg" {
     Name = "${var.name}-${var.env}-sg"
   }
 }
+
 resource "aws_launch_template" "template" {
-  name_prefix     = "${var.name}-${var.env}-lt"
-  image_id        = data.aws_ami.ami.id
-  instance_type   = var.instance_type
+  name_prefix            = "${var.name}-${var.env}-lt"
+  image_id               = data.aws_ami.ami.id
+  instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sg.id]
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name                 = "${var.name}-${var.env}-asg"
-  desired_capacity     = var.desired_capacity
-  min_size             = var.min_size
-  max_size             = var.max_size
-  vpc_zone_identifier  = var.subnet_ids
+  name                = "${var.name}-${var.env}-asg"
+  desired_capacity    = var.desired_capacity
+  max_size            = var.max_size
+  min_size            = var.min_size
+  vpc_zone_identifier = var.subnet_ids
+}
 
 
   launch_template {
