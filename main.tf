@@ -38,7 +38,7 @@ resource "aws_launch_template" "template" {
 }
 
 resource "aws_autoscaling_group" "asg" {
-  name_prefix     = "${var.name}-${var.env}-lt"
+  name                 = "${var.name}-${var.env}-asg"
   min_size             = var.min_size
   max_size             = var.max_size
   desired_capacity     = var.desired_capacity
