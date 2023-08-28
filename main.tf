@@ -38,6 +38,7 @@ resource "aws_launch_template" "template" {
 }
 
 resource "aws_autoscaling_group" "asg" {
+  availability_zones = 'us-east-1a'
   name_prefix     = "${var.name}-${var.env}-asg"
   min_size             = var.min_size
   max_size             = var.max_size
