@@ -17,8 +17,8 @@ resource "aws_autoscaling_group" "asg" {
   }
 }
 resource "aws_security_group" "sg" {
-  name        = "${var.name} - ${var.env}-sg"
-  description = "${var.name} - ${var.env}-sg"
+  name        = "${var.name}-${var.env}-sg"
+  description = "${var.name}-${var.env}-sg"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -29,7 +29,7 @@ resource "aws_security_group" "sg" {
     cidr_blocks      = var.allow_app_cidr
   }
    ingress {
-     description = "ssh"
+     description = "SSH"
      from_port = 22
      to_port = 22
      protocol = "tcp"
