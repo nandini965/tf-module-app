@@ -7,4 +7,4 @@ variable "min_size" {}
 variable "max_size" {}
 variable "bastion_cidr" {}
 variable "allow_app_cidr" {}
-variable "vpc_id" {}
+variable "vpc_ids" {}
