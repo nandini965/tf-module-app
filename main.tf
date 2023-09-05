@@ -38,17 +38,17 @@ resource "aws_security_group" "sg" {
  vpc_security_group_ids = [aws_security_group.sg.id]
 }
 
-//resource "aws_autoscaling_group" "asg" {
-  //name                = "${var.name}-${var.env}-asg"
-  //desired_capacity    = var.desired_capacity
- // max_size            = var.max_size
-  //min_size            = var.min_size
-  //vpc_zone_identifier = var.subnet_ids
+resource "aws_autoscaling_group" "asg" {
+  name                = "${var.name}-${var.env}-asg"
+  desired_capacity    = var.desired_capacity
+  max_size            = var.max_size
+  min_size            = var.min_size
+  vpc_zone_identifier = var.subnet_ids
 
 
 
- //launch_template {
-  //id      = aws_launch_template.template.id
-  //version = "$Latest"
-  //}
-//}
+ launch_template {
+  id      = aws_launch_template.template.id
+  version = "$Latest"
+  }
+}
