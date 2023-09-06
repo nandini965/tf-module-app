@@ -52,3 +52,13 @@ resource "aws_security_group" "sg" {
   version = "$Latest"
   }
 }
+
+dynamic "tag" {
+  for_each = var.tags
+  content {
+    key                 = tag.key
+    value               = tag.value
+    propagate_at_launch = true
+  }
+}
+}
