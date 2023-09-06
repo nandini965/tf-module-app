@@ -51,13 +51,14 @@ resource "aws_security_group" "sg" {
   id      = aws_launch_template.template.id
   version = "$Latest"
   }
-}
 
-dynamic "tag" {
+
+ dynamic "tag" {
   for_each = var.tags
   content {
-    key                 = tag.key
-    value               = tag.value
+    key                 = tag.value.key
+    value               = tag.value.value
     propagate_at_launch = true
   }
+}
 }
