@@ -54,10 +54,10 @@ resource "aws_security_group" "sg" {
 
 
  dynamic "tag" {
-  for_each = var.tags
+  for_each = local.asg_tags
   content {
-    key                 = tag.value.key
-    value               = tag.value.value
+    key                 = tag.key
+    value               = tag.value
     propagate_at_launch = true
   }
 }
