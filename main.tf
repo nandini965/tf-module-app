@@ -6,8 +6,8 @@ resource "aws_security_group" "sg" {
 
   ingress {
     description      = "APP"
-    from_port        = 8080
-    to_port          = 8080
+    from_port        = var.app_port
+    to_port          = var.app_port
     protocol         = "tcp"
     cidr_blocks      = var.allow_app_cidr
   }
@@ -65,7 +65,7 @@ target_group_arns = [aws_lb_target_group.main.arn]
 
 resource "aws_lb_target_group" "main" {
   name        = "${var.name}-${var.env}-tg"
-  port        = var.app
+  port        = var.app_port
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   tags = merge(var.tags, { Name = "${var.name}-${var.env}-tg" })
