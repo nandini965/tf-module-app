@@ -63,11 +63,11 @@ target_group_arns = [aws_lb_target_group.main.arn]
 }
 
 
-resource "aws_lb_target_group" "main" {
-  name        = "${var.name}-${var.env}-tg"
-  app_port        = var.app_port
-  protocol    = "HTTP"
-  vpc_id      = var.vpc_id
-  tags = merge(var.tags, { Name = "${var.name}-${var.env}-tg" })
-}
+//resource "aws_lb_target_group" "main" {
+  //name        = "${var.name}-${var.env}-tg"
+  //app_port        = var.app_port
+  //protocol    = "HTTP"
+  //vpc_id      = var.vpc_id
+  //tags = merge(var.tags, { Name = "${var.name}-${var.env}-tg" })
+//}
 
