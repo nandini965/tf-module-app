@@ -9,3 +9,4 @@ variable "bastion_cidr" {}
 variable "allow_app_cidr" {}
 variable "vpc_id" {}
 variable "tags" {}
+variable "app" {}
