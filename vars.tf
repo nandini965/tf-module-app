@@ -10,4 +10,3 @@ variable "allow_app_cidr" {}
 variable "vpc_id" {}
 variable "tags" {}
 variable "app_port" {}
-variable
