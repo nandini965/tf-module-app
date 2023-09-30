@@ -36,6 +36,10 @@ resource "aws_security_group" "sg" {
   instance_type          = var.instance_type
  vpc_security_group_ids = [aws_security_group.sg.id]
 }
+user_data = base64encode(templatefile("${path.module}/userdata.sh", {
+  name = var.name
+  env  = var.env
+}))
 
   resource "aws_autoscaling_group" "asg" {
   name                = "${var.name}-${var.env}-asg"
@@ -62,8 +66,7 @@ target_group_arns = [aws_lb_target_group.main.arn]
 }
 }
 
-
-resource "aws_lb_target_group" "main" {
+ resource "aws_lb_target_group" "main" {
   name        = "${var.name}-${var.env}-tg"
   port        = var.app_port
   protocol    = "HTTP"
@@ -71,3 +74,30 @@ resource "aws_lb_target_group" "main" {
   tags = merge(var.tags, { Name = "${var.name}-${var.env}-tg" })
 }
 
+resource "aws_lb_listener_rule" "rule" {
+  listener_arn = var.listener_arn
+  priority     = var.listener_priority
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main.arn
+  }
+
+
+  condition {
+    host_header {
+      values = [local.dns_name]
+    }
+  }
+}
+
+
+
+
+resource "aws_route53_record" "main" {
+  zone_id = var.domain_id
+  name    = local.dns_name
+  type    = "CNAME"
+  ttl     = 30
+  records = [var.lb_dns_name]
+}
