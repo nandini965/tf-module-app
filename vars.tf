@@ -13,6 +13,6 @@ variable "app_port" {}
 variable "dns_name" {}
 variable "listener_priority" {}
 variable "listener_arn" {}
-variable "domain_name" {}
-variable "domain_id" {}
-variable "lb_dns_name" {}
+//variable "domain_name" {}
+//variable "domain_id" {}
+//variable "lb_dns_name" {}
