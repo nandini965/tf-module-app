@@ -53,7 +53,7 @@ resource "aws_launch_template" "template" {
   max_size            = var.max_size
   min_size            = var.min_size
   vpc_zone_identifier = var.subnet_ids
-target_group_arns = [aws_lb_target_group.main.arn]
+  target_group_arns = [aws_lb_target_group.main.arn]
 
 
  launch_template {
