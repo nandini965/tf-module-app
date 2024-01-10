@@ -125,7 +125,8 @@ resource "aws_route53_record" "main" {
 
   resource "aws_autoscaling_policy" "asg-cpu-rule" {
     name = "CPULOADDETECT"
-    policy_type =
+    autoscalig_group_name aws_autoscaling_group.asg.name
+    policy_type ="targettracklingscaling"
     target_tracking_configuration {
     predefined_metric_specification {
       predefined_metric_type = "ASGAverageCPUUtilization"
