@@ -122,3 +122,15 @@ resource "aws_route53_record" "main" {
   ttl     = 30
   records = [var.lb_dns_name]
 }
+
+  resource "aws_autoscaling_policy" "asg-cpu-rule" {
+    name = "CPULOADDETECT"
+    policy_type =
+    target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 20.0
+  }
+}
