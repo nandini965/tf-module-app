@@ -79,6 +79,20 @@ resource "aws_launch_template" "template" {
 }
 }
 
+resource "aws_autoscaling_policy" "asg-cpu-rule" {
+  name                   = "CPULoadDetect"
+  autoscaling_group_name = aws_autoscaling_group.asg.name
+  policy_type            = "TargetTrackingScaling"
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value = 20.0
+  }
+}
+
+
+
  resource "aws_lb_target_group" "main" {
   name        = "${var.name}-${var.env}-tg"
   port        = var.app_port
@@ -123,15 +137,4 @@ resource "aws_route53_record" "main" {
   records = [var.lb_dns_name]
 }
 
-  resource "aws_autoscaling_policy" "asg-cpu-rule" {
-    name = "CPULOADDETECT"
-    autoscaling_group_name = aws_autoscaling_group.asg.name
-    policy_type ="targettrackingscaling"
-    target_tracking_configuration {
-    predefined_metric_specification {
-      predefined_metric_type = "ASGAverageCPUUtilization"
-    }
 
-    target_value = 20.0
-  }
-}
